@@ -39,21 +39,25 @@ export function TeamFormPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!organization) return;
-    if (!teamId) return;
+  if (!organization?.id) return;
 
-    supabase
+  const organizationId = organization.id;
+
+  async function loadEmployees() {
+    const { data } = await supabase
       .from("ai_employees")
       .select("*")
-      .eq("organization_id", organization.id)
-      .order("name", { ascending: true })
-      .then(({ data }) => {
-        setEmployees(data ?? []);
-        if (!isEditing && data && data.length > 0) {
-          setLeadEmployeeId(data[0]!.id);
-        }
-      });
-  }, [organization, isEditing]);
+      .eq("organization_id", organizationId)
+      .order("name", { ascending: true });
+
+    setEmployees(data ?? []);
+
+    if (!isEditing && data && data.length > 0) {
+setLeadEmployeeId(data.at(0)?.id ?? "");    }
+  }
+
+  void loadEmployees();
+}, [organization, isEditing]);
 
   useEffect(() => {
     if (!isEditing || !teamId) return;
