@@ -15,10 +15,10 @@ import {
 
 import { useAuth } from "@/contexts/auth-context";
 import { useOrganization } from "@/contexts/organization-context";
-import { getProviderOption } from "@/lib/ai-providers";
 import { supabase } from "@/lib/supabase/client";
-import type { AiEmployee } from "@/lib/supabase/types";
-
+import type {
+  AiEmployee,
+} from "@/lib/supabase/types";
 export function PublishListingPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -152,8 +152,9 @@ export function PublishListingPage() {
               </Select>
               {selectedEmployee && (
                 <p className="text-xs text-muted-foreground">
-                  {getProviderOption(selectedEmployee.provider).label} ·{" "}
-                  {selectedEmployee.model}
+getProviderOption(
+  selectedEmployee.provider as AiProvider
+).label                  {selectedEmployee.model}
                 </p>
               )}
             </div>

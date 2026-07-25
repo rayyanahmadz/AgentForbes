@@ -116,8 +116,7 @@ export function EmployeeFormPage() {
             name: data.name,
             description: data.description ?? "",
             instructions: data.instructions ?? "",
-            provider: data.provider,
-            model: data.model,
+provider: data.provider as AiProvider,            model: data.model,
             temperature: Number(data.temperature),
             isActive: data.is_active
           });

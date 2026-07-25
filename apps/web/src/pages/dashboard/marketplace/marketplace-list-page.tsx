@@ -7,8 +7,10 @@ import { useAuth } from "@/contexts/auth-context";
 import { useOrganization } from "@/contexts/organization-context";
 import { getProviderOption } from "@/lib/ai-providers";
 import { supabase } from "@/lib/supabase/client";
-import type { MarketplaceListing } from "@/lib/supabase/types";
-
+import type {
+  MarketplaceListing,
+  AiProvider
+} from "@/lib/supabase/types";
 export function MarketplaceListPage() {
   const { user } = useAuth();
   const { organization } = useOrganization();
@@ -194,8 +196,9 @@ export function MarketplaceListPage() {
         ) : (
           <div className="grid gap-4 sm:grid-cols-2">
             {filteredListings.map((listing) => {
-              const providerOption = getProviderOption(listing.provider);
-              const isMine = listing.organization_id === organization?.id;
+const providerOption = getProviderOption(
+  listing.provider as AiProvider
+);              const isMine = listing.organization_id === organization?.id;
               const justInstalled = installedIds.has(listing.id);
 
               return (

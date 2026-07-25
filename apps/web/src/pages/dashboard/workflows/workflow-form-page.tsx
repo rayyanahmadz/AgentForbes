@@ -69,17 +69,19 @@ export function WorkflowFormPage() {
   // If editing, load the workflow + its steps.
   useEffect(() => {
     if (!isEditing || !workflowId) return;
+    const id = workflowId;
+    
 
     let isMounted = true;
     setIsLoading(true);
 
     async function load() {
       const [{ data: workflow, error: workflowError }, { data: stepRows }] = await Promise.all([
-        supabase.from("workflows").select("*").eq("id", workflowId).single(),
+        supabase.from("workflows").select("*").eq("id", id).single(),
         supabase
           .from("workflow_steps")
           .select("*")
-          .eq("workflow_id", workflowId)
+          .eq("workflow_id", id)
           .order("step_order", { ascending: true })
       ]);
 

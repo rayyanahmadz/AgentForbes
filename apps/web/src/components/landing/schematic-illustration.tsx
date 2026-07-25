@@ -10,16 +10,26 @@ export function SchematicIllustration() {
     >
       {/* corner registration marks */}
       {[
-        [24, 24],
-        [616, 24],
-        [24, 536],
-        [616, 536]
-      ].map(([x, y]) => (
-        <g key={`${x}-${y}`} stroke="#3A5878" strokeWidth="1">
-          <line x1={x - 10} y1={y} x2={x + 10} y2={y} />
-          <line x1={x} y1={y - 10} x2={x} y2={y + 10} />
-        </g>
-      ))}
+  [24, 24],
+  [616, 24],
+  [24, 536],
+  [616, 536]
+].map(([x, y]) => (
+  <g key={`${x}-${y}`} stroke="#3A5878" strokeWidth="1">
+    <line
+      x1={(x ?? 0) - 10}
+      y1={y ?? 0}
+      x2={(x ?? 0) + 10}
+      y2={y ?? 0}
+    />
+    <line
+      x1={x ?? 0}
+      y1={(y ?? 0) - 10}
+      x2={x ?? 0}
+      y2={(y ?? 0) + 10}
+    />
+  </g>
+))}
 
       {/* coordinate ticks */}
       <text x="24" y="16" fill="#5B7794" fontFamily="IBM Plex Mono, monospace" fontSize="10">

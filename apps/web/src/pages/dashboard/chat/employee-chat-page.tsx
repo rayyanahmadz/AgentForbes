@@ -43,14 +43,17 @@ export function EmployeeChatPage() {
     let isMounted = true;
 
     async function load() {
-      const [{ data: employeeData }, { data: conversationData }] = await Promise.all([
-        supabase.from("ai_employees").select("*").eq("id", employeeId).single(),
-        supabase
-          .from("conversations")
-          .select("*")
-          .eq("ai_employee_id", employeeId)
-          .order("updated_at", { ascending: false })
-      ]);
+    const [{ data: employeeData }, { data: conversationData }] = await Promise.all([
+  supabase
+    .from("ai_employees")
+    .select("*")
+.eq("id", employeeId!)    .single(),
+
+  supabase
+    .from("conversations")
+    .select("*")
+.eq("ai_employee_id", employeeId!)    .order("updated_at", { ascending: false })
+]);
 
       if (!isMounted) return;
 
@@ -84,9 +87,13 @@ export function EmployeeChatPage() {
       .order("created_at", { ascending: true })
       .then(({ data }) => {
         if (!isMounted) return;
-        setMessages(
-          (data ?? []).map((m: Message) => ({ id: m.id, role: m.role, content: m.content }))
-        );
+       setMessages(
+  (data ?? []).map((m: Message) => ({
+    id: m.id,
+    role: m.role as "user" | "assistant",
+    content: m.content
+  }))
+);
       });
 
     return () => {

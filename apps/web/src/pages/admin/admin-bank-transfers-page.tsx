@@ -46,8 +46,7 @@ export function AdminBankTransfersPage() {
     const { error: rpcError } = await supabase.rpc("verify_bank_transfer", {
       target_order_id: transfer.id,
       approve,
-      note: notes[transfer.id]?.trim() || null
-    });
+note: notes[transfer.id]?.trim() || undefined    });
 
     setProcessingId(null);
 

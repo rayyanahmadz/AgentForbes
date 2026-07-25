@@ -40,6 +40,7 @@ export function TeamFormPage() {
 
   useEffect(() => {
     if (!organization) return;
+    if (!teamId) return;
 
     supabase
       .from("ai_employees")
@@ -62,8 +63,8 @@ export function TeamFormPage() {
 
     async function load() {
       const [{ data: team, error: teamError }, { data: memberRows }] = await Promise.all([
-        supabase.from("teams").select("*").eq("id", teamId).single(),
-        supabase.from("team_members").select("*").eq("team_id", teamId)
+        supabase.from("teams").select("*").eq("id", teamId!).single(),
+        supabase.from("team_members").select("*").eq("team_id", teamId!)
       ]);
 
       if (!isMounted) return;

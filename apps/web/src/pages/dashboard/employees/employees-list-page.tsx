@@ -7,6 +7,7 @@ import { useOrganization } from "@/contexts/organization-context";
 import { getProviderOption } from "@/lib/ai-providers";
 import { supabase } from "@/lib/supabase/client";
 import type { AiEmployee } from "@/lib/supabase/types";
+import type { AiProvider } from "@/lib/supabase/types";
 
 export function EmployeesListPage() {
   const { organization, isLoading: isOrgLoading } = useOrganization();
@@ -97,7 +98,9 @@ export function EmployeesListPage() {
       ) : (
         <div className="grid gap-4 sm:grid-cols-2">
           {employees.map((employee) => {
-            const providerOption = getProviderOption(employee.provider);
+            const providerOption = getProviderOption(
+  employee.provider as AiProvider
+);
             return (
               <Card key={employee.id}>
                 <CardContent className="flex flex-col gap-3 p-5">

@@ -34,17 +34,19 @@ export function TeamChatPage() {
   const scrollAnchorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!teamId) return;
+  if (!teamId) return;
 
-    let isMounted = true;
+  const id = teamId;
 
-    async function load() {
+  let isMounted = true;
+
+  async function load() {
       const [{ data: teamData }, { data: conversationData }] = await Promise.all([
-        supabase.from("teams").select("*").eq("id", teamId).single(),
+        supabase.from("teams").select("*").eq("id", id).single(),
         supabase
           .from("team_conversations")
           .select("*")
-          .eq("team_id", teamId)
+          .eq("team_id", id)
           .order("updated_at", { ascending: false })
       ]);
 
@@ -69,6 +71,7 @@ export function TeamChatPage() {
       setMessages([]);
       return;
     }
+    const conversationId = activeConversationId;
 
     let isMounted = true;
 
@@ -76,8 +79,8 @@ export function TeamChatPage() {
       const { data } = await supabase
         .from("team_messages")
         .select("*, ai_employees (name)")
-        .eq("team_conversation_id", activeConversationId)
-        .order("created_at", { ascending: true });
+        
+.eq("team_conversation_id", conversationId)        .order("created_at", { ascending: true });
 
       if (!isMounted) return;
 
@@ -86,8 +89,7 @@ export function TeamChatPage() {
           const cast = m as unknown as TeamMessage & { ai_employees: { name: string } | null };
           return {
             id: cast.id,
-            role: cast.role,
-            content: cast.content,
+role: cast.role as "user" | "assistant",            content: cast.content,
             respondedByName: cast.ai_employees?.name
           };
         })
@@ -106,12 +108,14 @@ export function TeamChatPage() {
   }, [messages]);
 
   const handleCreateConversation = useCallback(async () => {
-    if (!organization || !teamId || !user) return;
+   if (!organization || !teamId || !user) return;
 
-    setIsCreatingConversation(true);
+const id = teamId;
+
+setIsCreatingConversation(true);
     const { data, error: createError } = await supabase
       .from("team_conversations")
-      .insert({ organization_id: organization.id, team_id: teamId, created_by: user.id })
+      .insert({ organization_id: organization.id, team_id: id, created_by: user.id })
       .select("*")
       .single();
     setIsCreatingConversation(false);
@@ -153,10 +157,12 @@ export function TeamChatPage() {
     let conversationId = activeConversationId;
 
     if (!conversationId) {
-      if (!organization || !teamId || !user) return;
+  if (!organization || !teamId || !user) return;
+
+  const id = teamId;
       const { data, error: createError } = await supabase
         .from("team_conversations")
-        .insert({ organization_id: organization.id, team_id: teamId, created_by: user.id })
+        .insert({ organization_id: organization.id, team_id: id, created_by: user.id })
         .select("*")
         .single();
 

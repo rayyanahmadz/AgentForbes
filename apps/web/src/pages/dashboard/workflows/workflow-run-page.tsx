@@ -27,27 +27,30 @@ export function WorkflowRunPage() {
   const [selectedRunSteps, setSelectedRunSteps] = useState<WorkflowStepRun[]>([]);
 
   const loadPastRuns = useCallback(async () => {
-    if (!workflowId) return;
-    const { data } = await supabase
-      .from("workflow_runs")
-      .select("*")
-      .eq("workflow_id", workflowId)
-      .order("created_at", { ascending: false })
+  if (!workflowId) return;
+
+  const id = workflowId;
+
+  const { data } = await supabase
+    .from("workflow_runs")
+    .select("*")
+.eq("id", id)      .order("created_at", { ascending: false })
       .limit(20);
     setPastRuns(data ?? []);
   }, [workflowId]);
 
   useEffect(() => {
-    if (!workflowId) return;
+  if (!workflowId) return;
 
-    async function load() {
+  const id = workflowId;
+
+  async function load() {
       const [{ data: workflowData }, { data: stepData }] = await Promise.all([
-        supabase.from("workflows").select("*").eq("id", workflowId).single(),
+        supabase.from("workflows").select("*").eq("id", id).single(),
         supabase
           .from("workflow_steps")
           .select("*")
-          .eq("workflow_id", workflowId)
-          .order("step_order", { ascending: true })
+.eq("workflow_id", id)          .order("step_order", { ascending: true })
       ]);
       setWorkflow(workflowData ?? null);
       setSteps(stepData ?? []);
@@ -58,17 +61,18 @@ export function WorkflowRunPage() {
   }, [workflowId, loadPastRuns]);
 
   async function handleRun() {
-    if (!workflowId || isRunning) return;
+  if (!workflowId || isRunning) return;
 
-    setIsRunning(true);
-    setRunError(null);
+  const id = workflowId;
+
+  setIsRunning(true);
+  setRunError(null);
     setSelectedRun(null);
     setProgress(
       Object.fromEntries(steps.map((step) => [step.step_order, { status: "pending" as const }]))
     );
 
-    await streamWorkflowRun(workflowId, input, {
-      onStepStart: (stepOrder) => {
+await streamWorkflowRun(id, input, {      onStepStart: (stepOrder) => {
         setProgress((current) => ({ ...current, [stepOrder]: { status: "running" } }));
       },
       onStepComplete: (stepOrder, output) => {

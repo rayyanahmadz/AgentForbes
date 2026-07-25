@@ -229,8 +229,7 @@ export function AnalyticsPage() {
       team_chat: 0
     };
     for (const entry of ledger) {
-      totals[entry.reason] += Math.abs(entry.amount);
-    }
+totals[entry.reason] = (totals[entry.reason] ?? 0) + Math.abs(entry.amount);    }
     return totals;
   }, [ledger]);
 
@@ -322,8 +321,13 @@ export function AnalyticsPage() {
                   <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
                     <div
                       className="h-full rounded-full bg-primary"
-                      style={{ width: `${(reasonTotals[reason] / maxReasonTotal) * 100}%` }}
-                    />
+style={{
+  width: `${
+    maxReasonTotal === 0
+      ? 0
+      : ((reasonTotals[reason] ?? 0) / maxReasonTotal) * 100
+  }%`
+}}                  />
                   </div>
                 </div>
               ))
