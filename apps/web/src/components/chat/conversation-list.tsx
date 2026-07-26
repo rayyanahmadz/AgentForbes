@@ -25,8 +25,7 @@ export function ConversationList({
 
 }: ConversationListProps) {
   return (
-    <div className="flex h-full w-64 shrink-0 flex-col border-r">
-      <div className="border-b p-3">
+<div className="flex h-full min-h-0 w-64 shrink-0 overflow-hidden flex-col border-r">      <div className="border-b p-3">
         <Button
           size="sm"
           className="w-full gap-2"
@@ -38,8 +37,7 @@ export function ConversationList({
         </Button>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-2">
-        {conversations.length === 0 ? (
+<div className="min-h-0 flex-1 overflow-y-auto p-2">        {conversations.length === 0 ? (
           <p className="p-3 text-xs text-muted-foreground">
             No conversations yet. Start one above.
           </p>
