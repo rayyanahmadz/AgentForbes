@@ -241,8 +241,7 @@ export function EmployeeChatPage() {
   }
 
   return (
-    <div className="flex h-full flex-col">
-      <div className="flex items-center gap-3 border-b px-4 py-3">
+<div className="flex h-full min-h-0 flex-col">      <div className="flex items-center gap-3 border-b px-4 py-3">
         <Button asChild variant="ghost" size="icon">
           <Link to="/dashboard/employees">
             <ArrowLeft className="h-4 w-4" strokeWidth={1.75} />
@@ -266,8 +265,7 @@ export function EmployeeChatPage() {
         </div>
       </div>
 
-      <div className="flex flex-1 overflow-hidden">
-        <ConversationList
+<div className="flex min-h-0 flex-1 overflow-hidden">        <ConversationList
           conversations={conversations}
           activeConversationId={activeConversationId}
           onSelect={setActiveConversationId}
@@ -276,8 +274,7 @@ export function EmployeeChatPage() {
           isCreating={isCreatingConversation}
         />
 
-        <div className="flex flex-1 flex-col">
-          <div className="flex-1 overflow-y-auto px-6 py-6">
+<div className="flex min-h-0 flex-1 flex-col">          <div className="min-h-0 flex-1 overflow-y-auto px-6 py-6">
             {messages.length === 0 ? (
               <div className="flex h-full flex-col items-center justify-center gap-2 text-center text-sm text-muted-foreground">
                 <Bot className="h-8 w-8" strokeWidth={1.5} />
