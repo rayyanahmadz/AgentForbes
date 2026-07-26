@@ -5,6 +5,7 @@ import { getInitials } from "@agentforge/utils";
 
 import { NotificationBell } from "@/components/dashboard/notification-bell";
 import { OrgSwitcher } from "@/components/dashboard/org-switcher";
+import { ThemeToggle } from "@/components/dashboard/theme-toggle";
 import { useAuth } from "@/contexts/auth-context";
 import { usePlatformAdmin } from "@/hooks/use-platform-admin";
 
@@ -30,12 +31,18 @@ export function DashboardSidebar() {
   return (
     <aside className="flex h-screen w-64 flex-col border-r bg-card print:hidden">
       <div className="flex items-center justify-between gap-2 border-b px-3 py-4">
-        <div className="min-w-0 flex-1">
-          <p className="px-1.5 text-xs font-medium text-muted-foreground">AgentForge</p>
-          <OrgSwitcher />
-        </div>
-        <NotificationBell />
-      </div>
+  <div className="min-w-0 flex-1">
+    <p className="px-1.5 text-xs font-medium text-muted-foreground">
+      AgentForge
+    </p>
+    <OrgSwitcher />
+  </div>
+
+  <div className="flex items-center gap-1">
+    <ThemeToggle />
+    <NotificationBell />
+  </div>
+</div>
 
       <nav className="flex flex-1 flex-col gap-1 p-3">
         {navItems.map(({ to, label, icon: Icon, end }) => (

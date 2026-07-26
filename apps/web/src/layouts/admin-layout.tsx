@@ -36,8 +36,7 @@ export function AdminLayout() {
   }
 
   return (
-    <div className="flex min-h-screen bg-background">
-      <aside className="flex w-64 flex-col border-r bg-card">
+<div className="flex h-screen overflow-hidden bg-background">      <aside className="flex w-64 flex-col border-r bg-card">
         <div className="border-b px-5 py-5">
           <p className="font-semibold tracking-tight">AgentForge</p>
           <p className="mt-0.5 text-xs text-muted-foreground">Platform Admin</p>
@@ -71,8 +70,7 @@ export function AdminLayout() {
           </Link>
         </div>
       </aside>
-      <main className="flex-1 overflow-y-auto">
-        <div className="mx-auto max-w-4xl px-8 py-10">
+<main className="min-h-0 min-w-0 flex-1 overflow-y-auto">        <div className="mx-auto max-w-4xl px-8 py-10">
           <Outlet />
         </div>
       </main>

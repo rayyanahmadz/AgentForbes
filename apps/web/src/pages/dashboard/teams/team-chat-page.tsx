@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, Send, User, Users } from "lucide-react";
-import { Button, Input } from "@agentforge/ui";
+import { ArrowLeft, History, Send, User, Users } from "lucide-react";import { Button, Input } from "@agentforge/ui";
 
 import { ConversationList } from "@/components/chat/conversation-list";
 import { useAuth } from "@/contexts/auth-context";
@@ -30,8 +29,8 @@ export function TeamChatPage() {
   const [draft, setDraft] = useState("");
   const [isCreatingConversation, setIsCreatingConversation] = useState(false);
   const [isSending, setIsSending] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const scrollAnchorRef = useRef<HTMLDivElement>(null);
+const [error, setError] = useState<string | null>(null);
+  const [isHistoryOpen, setIsHistoryOpen] = useState(false);  const scrollAnchorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
   if (!teamId) return;
@@ -225,12 +224,20 @@ setIsCreatingConversation(true);
 
   return (
     <div className="flex h-full flex-col">
-      <div className="flex items-center gap-3 border-b px-4 py-3">
+     <div className="flex items-center gap-3 border-b px-4 py-3">
         <Button asChild variant="ghost" size="icon">
           <Link to="/dashboard/teams">
             <ArrowLeft className="h-4 w-4" strokeWidth={1.75} />
           </Link>
         </Button>
+        <button
+          type="button"
+          onClick={() => setIsHistoryOpen(true)}
+          className="flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-accent-foreground md:hidden"
+          aria-label="Show conversation history"
+        >
+          <History className="h-4 w-4" strokeWidth={1.75} />
+        </button>
         <span className="flex h-8 w-8 items-center justify-center rounded-md bg-secondary">
           <Users className="h-4 w-4" strokeWidth={1.75} />
         </span>
@@ -250,6 +257,8 @@ setIsCreatingConversation(true);
           onCreate={() => void handleCreateConversation()}
           onDelete={(id) => void handleDeleteConversation(id)}
           isCreating={isCreatingConversation}
+          isOpenOnMobile={isHistoryOpen}
+          onCloseMobile={() => setIsHistoryOpen(false)}
         />
 
         <div className="flex flex-1 flex-col">

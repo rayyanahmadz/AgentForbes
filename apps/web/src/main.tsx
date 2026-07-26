@@ -7,6 +7,7 @@ import "./styles/index.css";
 import App from "./App";
 import { AuthProvider } from "./contexts/auth-context";
 import { OrganizationProvider } from "./contexts/organization-context";
+import { ThemeProvider } from "./contexts/theme-context";
 
 const rootElement = document.getElementById("root");
 if (!rootElement) {
@@ -15,12 +16,14 @@ if (!rootElement) {
 
 createRoot(rootElement).render(
   <StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-        <OrganizationProvider>
-          <App />
-        </OrganizationProvider>
-      </AuthProvider>
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <AuthProvider>
+          <OrganizationProvider>
+            <App />
+          </OrganizationProvider>
+        </AuthProvider>
+      </BrowserRouter>
+    </ThemeProvider>
   </StrictMode>
 );

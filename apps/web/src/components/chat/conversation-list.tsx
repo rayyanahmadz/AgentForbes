@@ -1,18 +1,20 @@
 import { MessageSquarePlus, Trash2 } from "lucide-react";
 import { Button } from "@agentforge/ui";
-
-interface ConversationListItem {
-  id: string;
-  title: string;
-}
+import type {
+  Conversation,
+  TeamConversation,
+} from "@/lib/supabase/types";
 
 interface ConversationListProps {
-  conversations: ConversationListItem[];
+  conversations: (Conversation | TeamConversation)[];
   activeConversationId: string | null;
   onSelect: (id: string) => void;
   onCreate: () => void;
   onDelete: (id: string) => void;
   isCreating: boolean;
+
+  isOpenOnMobile: boolean;
+  onCloseMobile: () => void;
 }
 
 export function ConversationList({
@@ -21,7 +23,9 @@ export function ConversationList({
   onSelect,
   onCreate,
   onDelete,
-  isCreating
+  isCreating,
+  isOpenOnMobile,
+  onCloseMobile,
 }: ConversationListProps) {
   return (
     <div className="flex h-full w-64 shrink-0 flex-col border-r">

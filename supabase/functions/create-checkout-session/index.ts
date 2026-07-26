@@ -108,8 +108,9 @@ Deno.serve(async (req: Request) => {
     });
   }
 
-  const stripe = new Stripe(stripeSecretKey, { apiVersion: "2024-11-20" });
-  const origin = body.origin ?? "http://localhost:5173";
+const stripe = new Stripe(stripeSecretKey, {
+  apiVersion: "2026-06-24.dahlia"
+});  const origin = body.origin ?? "http://localhost:5173";
 
   const session = await stripe.checkout.sessions.create({
     mode: "payment",

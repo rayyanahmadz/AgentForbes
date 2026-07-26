@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, Bot, BrainCircuit, Check, Send, User } from "lucide-react";
-import { Button, Input } from "@agentforge/ui";
+import { ArrowLeft, Bot, BrainCircuit, Check, History, Send, User } from "lucide-react";import { Button, Input } from "@agentforge/ui";
 
 import { ConversationList } from "@/components/chat/conversation-list";
 import { useAuth } from "@/contexts/auth-context";
@@ -32,6 +31,7 @@ export function EmployeeChatPage() {
   const [isCreatingConversation, setIsCreatingConversation] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [savedMemoryIds, setSavedMemoryIds] = useState<Set<string>>(new Set());
   const [savingMemoryId, setSavingMemoryId] = useState<string | null>(null);
   const scrollAnchorRef = useRef<HTMLDivElement>(null);
@@ -249,6 +249,14 @@ export function EmployeeChatPage() {
             <ArrowLeft className="h-4 w-4" strokeWidth={1.75} />
           </Link>
         </Button>
+        <button
+          type="button"
+          onClick={() => setIsHistoryOpen(true)}
+          className="flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-accent-foreground md:hidden"
+          aria-label="Show conversation history"
+        >
+          <History className="h-4 w-4" strokeWidth={1.75} />
+        </button>
         <span className="flex h-8 w-8 items-center justify-center rounded-md bg-secondary">
           <Bot className="h-4 w-4" strokeWidth={1.75} />
         </span>
@@ -268,6 +276,8 @@ export function EmployeeChatPage() {
           onCreate={() => void handleCreateConversation()}
           onDelete={(id) => void handleDeleteConversation(id)}
           isCreating={isCreatingConversation}
+          isOpenOnMobile={isHistoryOpen}
+          onCloseMobile={() => setIsHistoryOpen(false)}
         />
 
         <div className="flex flex-1 flex-col">
