@@ -43,7 +43,7 @@ export function DashboardSidebar() {
   </div>
 </div>
 
-<nav className="flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto p-3">        {navItems.map(({ to, label, icon: Icon, end }) => (
+<nav className="flex flex-1 flex-col gap-1 p-3">        {navItems.map(({ to, label, icon: Icon, end }) => (
           <NavLink
             key={to}
             to={to}
