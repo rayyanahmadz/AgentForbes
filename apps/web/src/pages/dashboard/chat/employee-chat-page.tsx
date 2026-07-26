@@ -31,7 +31,6 @@ export function EmployeeChatPage() {
   const [isCreatingConversation, setIsCreatingConversation] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [savedMemoryIds, setSavedMemoryIds] = useState<Set<string>>(new Set());
   const [savingMemoryId, setSavingMemoryId] = useState<string | null>(null);
   const scrollAnchorRef = useRef<HTMLDivElement>(null);
@@ -251,7 +250,6 @@ export function EmployeeChatPage() {
         </Button>
         <button
           type="button"
-          onClick={() => setIsHistoryOpen(true)}
           className="flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-accent-foreground md:hidden"
           aria-label="Show conversation history"
         >

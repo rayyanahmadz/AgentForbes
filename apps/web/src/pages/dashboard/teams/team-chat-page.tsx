@@ -30,7 +30,7 @@ export function TeamChatPage() {
   const [isCreatingConversation, setIsCreatingConversation] = useState(false);
   const [isSending, setIsSending] = useState(false);
 const [error, setError] = useState<string | null>(null);
-  const [isHistoryOpen, setIsHistoryOpen] = useState(false);  const scrollAnchorRef = useRef<HTMLDivElement>(null);
+  const scrollAnchorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
   if (!teamId) return;
@@ -232,7 +232,6 @@ setIsCreatingConversation(true);
         </Button>
         <button
           type="button"
-          onClick={() => setIsHistoryOpen(true)}
           className="flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-accent-foreground md:hidden"
           aria-label="Show conversation history"
         >
