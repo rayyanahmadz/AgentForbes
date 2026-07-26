@@ -13,8 +13,6 @@ interface ConversationListProps {
   onDelete: (id: string) => void;
   isCreating: boolean;
 
-  isOpenOnMobile: boolean;
-  onCloseMobile: () => void;
 }
 
 export function ConversationList({
@@ -24,8 +22,7 @@ export function ConversationList({
   onCreate,
   onDelete,
   isCreating,
-  isOpenOnMobile,
-  onCloseMobile,
+
 }: ConversationListProps) {
   return (
     <div className="flex h-full w-64 shrink-0 flex-col border-r">

@@ -276,8 +276,6 @@ export function EmployeeChatPage() {
           onCreate={() => void handleCreateConversation()}
           onDelete={(id) => void handleDeleteConversation(id)}
           isCreating={isCreatingConversation}
-          isOpenOnMobile={isHistoryOpen}
-          onCloseMobile={() => setIsHistoryOpen(false)}
         />
 
         <div className="flex flex-1 flex-col">
